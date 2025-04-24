@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Document Q&A System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">📄 Upload Documents & Ask Questions</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data" class="mb-4">
+            <div class="mb-3">
+                <input class="form-control" type="file" name="files" multiple required>
+            </div>
+            <button class="btn btn-primary">Upload Files</button>
+        </form>
+
+        <form action="/ask" method="post">
+            <div class="mb-3">
+                <input class="form-control" type="text" name="question" placeholder="Enter your question" required>
+            </div>
+            <button class="btn btn-success">Ask</button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} mt-4">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+        {% if error %}
+        <div class="alert alert-danger mt-4">{{ error }}</div>
+        
+        {% elif answer and answer.items %}
+        <hr>
+        <h4 class="mt-4">🔎 Answers:</h4>
+        <ul class="list-group">
+            {% for file, response in answer.items() %}
+            <li class="list-group-item">
+                <strong>{{ file }}</strong><br>
+                {{ response|safe }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
