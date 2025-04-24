@@ -1,0 +1,13 @@
+flask
+werkzeug
+python-docx
+langchain
+faiss-cpu
+sentence-transformers
+unstructured
+pytesseract
+pdf2image
+Pillow
+requests
+beautifulsoup4
+openpyxl
